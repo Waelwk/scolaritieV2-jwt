@@ -13,4 +13,8 @@ public class AuthenticationRequest {
 
   private String email;
   String password;
+public String getRole() {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

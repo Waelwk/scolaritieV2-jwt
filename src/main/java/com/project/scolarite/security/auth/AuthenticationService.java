@@ -23,11 +23,11 @@ public class AuthenticationService {
   public AuthenticationResponse register(RegisterRequest request) {
 	 if(repository.findByEmail(request.getEmail()) != null) ;
     var user = User.builder()
-        .firstname(request.getFirstname())
-        .lastname(request.getLastname())
+        .userame(request.getUserame())
+    
         .email(request.getEmail())
         .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.USER)
+        .role(Role.ADMIN)
         .build();
     
     repository.save(user);
@@ -40,6 +40,25 @@ public class AuthenticationService {
 	 
   }
 
+  public AuthenticationResponse registerApprenant(RegisterRequest request) {
+	 if(repository.findByEmail(request.getEmail()) != null) ;
+    var user = User.builder()
+        .userame(request.getUserame())
+    
+        .email(request.getEmail())
+        .password(passwordEncoder.encode(request.getPassword()))
+        .role(Role.APPRENANT)
+        .build();
+    
+    repository.save(user);
+    
+    var jwtToken = jwtService.generateToken(user);
+    return AuthenticationResponse.builder()
+        .token(jwtToken)
+        .build();
+  
+	 
+  }
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
     authenticationManager.authenticate(
         new UsernamePasswordAuthenticationToken(
@@ -49,6 +68,9 @@ public class AuthenticationService {
     );
     var user = repository.findByEmail(request.getEmail())
         .orElseThrow();
+    var u = repository.findByEmail(request.getRole())
+            .orElseThrow();
+    
     var jwtToken = jwtService.generateToken(user);
     return AuthenticationResponse.builder()
         .token(jwtToken)

@@ -38,12 +38,13 @@ public class DepartementController {
                          
                              String NomDepartement, 
                               String AbreviationDepartement, 
-                             //Long TelDepartement, 
+                           String telDepartement, 
                             String EmailDepartement,
                           String RemarqueDepartement) throws IOException {
     	Departement departement= new Departement();
     	departement.setNomDepartement(NomDepartement);
-    	//departement.setTelDepartement(TelDepartement);
+      long	TelDepartement =Long.valueOf(telDepartement);
+   departement.setTelDepartement(TelDepartement);
     	departement.setEmailDepartement(EmailDepartement);
     	departement.setRemarqueDepartement(RemarqueDepartement);
     	departement.setAbreviationDepartement(AbreviationDepartement);
@@ -74,14 +75,15 @@ public class DepartementController {
             
              String NomDepartement, 
            String AbreviationDepartement, 
-           // Long TelDepartement, 
+           String telDepartement, 
          String EmailDepartement,
           String RemarqueDepartement) throws IOException {
         Optional<Departement> optionaldepartement = departementRepository.findById(codeDepartement);
         if (optionaldepartement.isPresent()) {
         	Departement departement = optionaldepartement.get();
         	departement.setNomDepartement(NomDepartement);
-        	//departement.setTelDepartement(TelDepartement);
+            long	TelDepartement =Long.valueOf(telDepartement);
+            departement.setTelDepartement(TelDepartement);
         	departement.setEmailDepartement(EmailDepartement);
         	departement.setRemarqueDepartement(RemarqueDepartement);
         	departement.setAbreviationDepartement(AbreviationDepartement);
@@ -97,8 +99,8 @@ public class DepartementController {
     }
 
     @DeleteMapping("/{codeDepartement}")
-    public ResponseEntity<Void> deletEtablissement(@PathVariable Long codeEtablissement) {
-    	departementRepository.deleteById(codeEtablissement);
+    public ResponseEntity<Void> deletDepartement(@PathVariable Long codeDepartement) {
+    	departementRepository.deleteById(codeDepartement);
         return ResponseEntity.noContent().build();
     }
 	

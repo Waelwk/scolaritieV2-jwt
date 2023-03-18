@@ -34,6 +34,7 @@ public class ApprenantRestController {
 	public Apprenant getApprenantById(@PathVariable("idApprenant") Long idApprenant) {
 		return apprenantService.getApprenant(idApprenant);
 	}
+	
 	@PostMapping
 	public Apprenant createApprenant(@RequestBody Apprenant apprenant) {
 	return apprenantService.saveApprenant(apprenant);

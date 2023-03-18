@@ -72,14 +72,15 @@ public class EtablissementController {
             
         String NomEtablissement, 
          String AbreviationEtablissement, 
-          //  @RequestParam("TelEtablissement") Long TelEtablissement, 
+     String telEtablissement, 
           String EmailEtablissement,
              String RemarqueEtablissement) throws IOException {
         Optional<Etablissement> optionaletablissement = etablissementRepository.findById(codeEtablissement);
         if (optionaletablissement.isPresent()) {
             Etablissement etablissement = optionaletablissement.get();
             etablissement.setNomEtablissement(NomEtablissement);
-        	//etablissement.setTelEtablissement(TelEtablissement);
+           long TelEtablissement=Long.valueOf(telEtablissement);
+        	etablissement.setTelEtablissement(TelEtablissement);
         	etablissement.setEmailEtablissement(EmailEtablissement);
         	etablissement.setRemarqueEtablissement(RemarqueEtablissement);
         	etablissement.setAbreviationEtablissement(AbreviationEtablissement);
@@ -94,7 +95,12 @@ public class EtablissementController {
             return ResponseEntity.notFound().build();
         }
     }
-
+    @GetMapping("/etab")
+    public ResponseEntity<List<Etablissement>> getOneImages() {
+        List<Etablissement> etablissement =etablissementRepository.findAll();
+        return new ResponseEntity<>(etablissement, HttpStatus.OK);
+    }
+    
     @DeleteMapping("/{codeEtablissement}")
     public ResponseEntity<Void> deletEtablissement(@PathVariable Long odeEtablissement) {
     	etablissementRepository.deleteById(odeEtablissement);

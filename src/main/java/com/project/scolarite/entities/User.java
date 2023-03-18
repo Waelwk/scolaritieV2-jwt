@@ -34,8 +34,8 @@ public class User implements UserDetails {
   @Id
   @GeneratedValue
   private Integer id;
-  private String firstname;
-  private String lastname;
+  private String userame;
+  //private String lastname;
 
   @JoinColumn(nullable = false)
   @Column(name = "email", unique = true, length = 115)

@@ -8,22 +8,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class AnneeScolaire {
+public class Classe {
+
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY) 
-	 @Column(name = "idAnneeScolaire", unique = true)
-	private Long idAnneeScolaire;
-	 @Column(name = "AnneeScolaire", unique = true)
-	private Date Annee;
-	 @OneToMany(mappedBy = "AnneeScolaire") 
-	    private List<Departement> Departement;
+	 @Column(name = "idClasse", unique = true)
+	private Long idClasse;
+	 @Column(name = "nomClasse", unique = true )
+	 
+	private String nomClasse;
+	 @ManyToOne
+	 private Departement Departement;
+	 @OneToMany(mappedBy = "Classe") 
+	    private List<Apprenant> Apprenant;
 }
