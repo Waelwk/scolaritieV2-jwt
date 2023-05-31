@@ -1,19 +1,12 @@
 package com.project.scolarite.restcontroller;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.scolarite.entities.Classe;
-import com.project.scolarite.entities.User;
-import com.project.scolarite.repos.UserRepository;
 import com.project.scolarite.security.auth.AuthenticationRequest;
 import com.project.scolarite.security.auth.AuthenticationResponse;
 import com.project.scolarite.security.auth.AuthenticationService;
@@ -44,5 +37,7 @@ public class AuthenticationController {
   ) {
     return ResponseEntity.ok(service.authenticate(request));
   }
+
+
 
 }
