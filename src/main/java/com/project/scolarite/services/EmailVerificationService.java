@@ -1,15 +1,21 @@
 package com.project.scolarite.services;
 
+import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.project.scolarite.entities.User;
 import com.project.scolarite.repos.UserRepository;
+
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailVerificationService {
@@ -35,19 +41,38 @@ public class EmailVerificationService {
         userRepository.save(user);
 
         // Compose the verification email
-        String emailBody = VERIFICATION_EMAIL_BODY + ""+getVerificationUrl(user) + "+YOur mdp is "+user.getPassword();
+        String emailBody = VERIFICATION_EMAIL_BODY + ""+getVerificationUrl(user);
 
         // Send the verification email
         sendEmail(user.getEmail(), VERIFICATION_EMAIL_SUBJECT, emailBody);
     }
 
     private void sendEmail(String recipientEmail, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
+    	
+    	MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+
+        try {
+            messageHelper.setTo(recipientEmail);
+            messageHelper.setSubject(subject);
+            messageHelper.setText(body);
+
+            InternetAddress fromAddress = new InternetAddress("contact@shopme.com", "Shopme Support");
+            messageHelper.setFrom(fromAddress);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            // Handle exception
+        } catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+       /* SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(recipientEmail);
         message.setSubject(subject);
         message.setText(body);
 
-        javaMailSender.send(message);
+        javaMailSender.send(message);*/
     }
 
     private String getVerificationUrl(User user) {

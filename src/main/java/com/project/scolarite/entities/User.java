@@ -53,6 +53,15 @@ public   class User implements UserDetails {
   private Long id;
   private String userame;
   
+  
+  private String Nom;
+  private String Prenom ;
+  private Long Tel;
+ // private String EmailFormateur;
+  private String Adresse;
+  
+  private boolean archive=false;
+  
   @Column(name = "verification_code", length = 64)
   private boolean verified;
   private String verificationToken;

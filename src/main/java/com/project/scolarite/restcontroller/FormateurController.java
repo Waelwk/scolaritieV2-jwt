@@ -14,12 +14,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.project.scolarite.entities.Apprenant;
 import com.project.scolarite.entities.Formateur;
 import com.project.scolarite.entities.Role;
 import com.project.scolarite.repos.FormateurRepository;
@@ -49,12 +50,12 @@ public class FormateurController {
                             String Email,
                           String AdresseFormateur) throws IOException {
     	Formateur Formateur= new Formateur();
-    	Formateur.setNomFormateur(NomFormateur);
+    	Formateur.setNom(NomFormateur);
      long	TelFormateur=Long.valueOf(telFormateur);
-     Formateur.setTelFormateur(TelFormateur);
+     Formateur.setTel(TelFormateur);
   
-   Formateur.setPrenonFormateur(PrenonFormateur);
-   Formateur.setAdresseFormateur(AdresseFormateur);
+   Formateur.setPrenom(PrenonFormateur);
+   Formateur.setAdresse(AdresseFormateur);
    Formateur.setSpecialite( Specialite);
    Formateur.setFileType(file.getContentType());
    Formateur.setData(file.getBytes());
@@ -97,12 +98,12 @@ public class FormateurController {
         Optional<Formateur> optionalFormateur = FormateurRepository.findById(codeFormateur);
         if (optionalFormateur.isPresent()) {
         	Formateur Formateur = optionalFormateur.get();
-        	Formateur.setNomFormateur(NomFormateur);
+        	Formateur.setNom(NomFormateur);
            long	TelFormateur=Long.valueOf(telFormateur);
-            Formateur.setTelFormateur(TelFormateur);
+            Formateur.setTel(TelFormateur);
        
-         Formateur.setPrenonFormateur(PrenonFormateur);
-         Formateur.setAdresseFormateur(AdresseFormateur);
+         Formateur.setPrenom(PrenonFormateur);
+         Formateur.setAdresse(AdresseFormateur);
          Formateur.setSpecialite( Specialite);
           
          
@@ -134,5 +135,37 @@ public class FormateurController {
         return ResponseEntity.noContent().build();
     }
 	
-
+    
+    
+    @PutMapping("Archivee/{codeFormateur}")
+    public ResponseEntity<Formateur> updateFormateur(@PathVariable Long codeFormateur
+    		
+           ) throws IOException {
+        Optional<Formateur> optionalFormateur = FormateurRepository.findById(codeFormateur);
+        if (optionalFormateur.isPresent()) {
+        	Formateur Formateur = optionalFormateur.get();
+        	Formateur.setArchive(true);
+                      return ResponseEntity.ok( UserRepository.save(Formateur));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    
+    @PutMapping("desArchivee/{codeFormateur}")
+    public ResponseEntity<Formateur> desArchiveeFormateur(@PathVariable  Long codeFormateur
+    		
+           ) throws IOException {
+        Optional<Formateur> optionalFormateur = FormateurRepository.findById(codeFormateur);
+        if (optionalFormateur.isPresent()) {
+        	Formateur Formateur = optionalFormateur.get();
+        	Formateur.setArchive(false);
+                      return ResponseEntity.ok( UserRepository.save(Formateur));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+	
+	
 }

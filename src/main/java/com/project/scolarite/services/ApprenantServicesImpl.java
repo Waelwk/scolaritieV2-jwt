@@ -1,6 +1,7 @@
 package com.project.scolarite.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.scolarite.entities.Apprenant;
+import com.project.scolarite.entities.Formateur;
 import com.project.scolarite.entities.QualiteApprenant;
 import com.project.scolarite.entities.Role;
 import com.project.scolarite.entities.User;
@@ -30,7 +32,7 @@ public class ApprenantServicesImpl implements ApprenantServices{
 	@Override
 	public Apprenant saveApprenant(Apprenant A) {
 		// TODO Auto-generated method stub
-		A.setPassword(A.getPassword());
+		A.setPassword(new BCryptPasswordEncoder().encode(A.getPassword()));
 		
 		A.setRole(Role.APPRENANT);
         A.setVerified(false);
@@ -43,30 +45,41 @@ public class ApprenantServicesImpl implements ApprenantServices{
 
 	@Override
 	public Apprenant updateApprenant(Apprenant A) {
-		if(!A.getPassword().isEmpty()){
-		A.setPassword(A.getPassword());
-		}
-		A.setRole(Role.APPRENANT);
 		
 		
-		/*if(A.getQualiteApprenant().equals("Professionel")){
-			A.setQualiteApprenant(QualiteApprenant.Professionel);
-		}
-		if(A.getQualiteApprenant().equals("Eleve")){
-			A.setQualiteApprenant(QualiteApprenant.Eleve);
-		}
+		  String newPassword = A.getPassword();
+		  
+		  Optional<Apprenant> optionalApprenant = apprenantRepository.findById(A.getId());
+	        if (optionalApprenant.isPresent()) {
+	        	if( newPassword.isEmpty()) {
+	        	Apprenant Apprenant = optionalApprenant.get();
+	        	Apprenant.setAdresse(A.getAdresse());
+	        	Apprenant.setDateNaissanceApprenant(A.getDateNaissanceApprenant());
+	        	Apprenant.setNiveauApprenant(A.getNiveauApprenant());
+	        	Apprenant.setEmail(A.getEmail());
+	        	Apprenant.setNom(A.getNom());
+	        //	Apprenant.setPassword(A.getPassword());
+	        	
+	        	
+	        	Apprenant.setPrenom(A.getPrenom());
+	        	Apprenant.setTel(A.getTel());
+	        	Apprenant.setQualiteApprenant(A.getQualiteApprenant());
+	        	   return UserRepository.save(Apprenant);}
+	        }
+		  
+
+	        A.setPassword(new BCryptPasswordEncoder().encode(A.getPassword()));
 		
-		if(A.getQualiteApprenant().equals("Etudiant")){
-			A.setQualiteApprenant(QualiteApprenant.Etudiant);}
-		else {
-			A.setQualiteApprenant(QualiteApprenant.Demandeur_emploie);}*/
+			A.setRole(Role.APPRENANT);
+	        return UserRepository.save(A);
+	
+		
 		
 		
        
    
 
-				
-		return  UserRepository.save(A);
+
 	}
 	
 

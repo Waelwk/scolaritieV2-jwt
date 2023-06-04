@@ -74,7 +74,7 @@ public class ApprenantRestController {
 	@RequestMapping(value="/{idApprenant}/patch",method = RequestMethod.PUT)
 	public Apprenant patchApprenantt(@RequestBody Apprenant apprenant) {
 		
-		apprenant.setArchiveApprenant(true);
+		apprenant.setArchive(true);
 	return apprenantService.updateApprenant(apprenant);
 	}
 	

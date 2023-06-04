@@ -51,20 +51,20 @@ public class  Apprenant extends   User  {
 	
 	
 	 
-	private String nomApprenant;
-	private String prenomApprenant;
+	//private String nomApprenant;
+	//private String prenomApprenant;
 	private String sexeApprenant;
-	private Date dateNaissanceApprenant;
+private Date dateNaissanceApprenant;
 	
 //@Column(name = "emailApprenant", unique = true)
 	 
 	//private String emailApprenant;
-	private Long telApprenant;
-	private String adresseApprenant;
+	//private Long telApprenant;
+	//private String adresseApprenant;
 	@Enumerated(EnumType.STRING)
 	private QualiteApprenant  qualiteApprenant;
 	private String niveauApprenant;
-	private boolean archiveApprenant=false;
+	//private boolean archiveApprenant=false;
 	
 	  @JsonIgnore
 

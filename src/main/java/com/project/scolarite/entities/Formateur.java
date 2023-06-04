@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.scolarite.services.SesionFormationServices;
 
 import jakarta.persistence.CascadeType;
@@ -49,11 +49,11 @@ public class Formateur extends User {
 
 	  
 
-	    private String NomFormateur;
-	    private String PrenonFormateur ;
-	    private Long TelFormateur;
+	    //private String NomFormateur;
+	 //   private String PrenonFormateur ;
+	  //  private Long TelFormateur;
 	   // private String EmailFormateur;
-	    private String AdresseFormateur;
+	  //  private String AdresseFormateur;
 	    private String Specialite;
 	 
 
@@ -67,8 +67,10 @@ public class Formateur extends User {
 
 	    @Column(name = "updated_at")
 	    private LocalDateTime updatedAt;
-	  @JsonIgnore
+	    @JsonIgnore
+	    
 	    @OneToMany(mappedBy = "Formateur" ) 
+	    @JsonManagedReference
 	    private List<SesionDeFormation> SesionDeFormation;
 
 	   
