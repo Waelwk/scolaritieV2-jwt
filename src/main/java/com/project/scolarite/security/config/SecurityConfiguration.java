@@ -25,7 +25,7 @@ public class SecurityConfiguration {
         .csrf()
         .disable()
         .authorizeHttpRequests()
-        .requestMatchers("/api/v1/auth/**","/api/Etablissement/**","/api/actualite/all","/api/apprenant/add","/api/themeDeFormation/all","/api/sessionDeFormation/all","/api/contact/add","/api/apprenant/add","/api/SeanceFormation/all","/api/apprenant/verify-email","/api/Password/forgot_password","/api/Password/reset_password")
+        .requestMatchers("/api/v1/auth/**","/api/Etablissement/**","/api/actualite/all","/api/apprenant/add","/api/themeDeFormation/all","/api/sessionDeFormation/all","/api/contact/add","/api/apprenant/add","/api/SeanceFormation/all","/api/apprenant/verify-email","/api/Password/forgot_password","/api/Password/reset_password","/api/admin/add")
         .permitAll()
         .anyRequest()
         .authenticated()

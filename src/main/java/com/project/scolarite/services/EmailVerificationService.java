@@ -84,7 +84,7 @@ public class EmailVerificationService {
         User user = userRepository.findByVerificationToken(token);
 
         if (user == null) {
-            throw new IllegalArgumentException("dd");
+            throw new IllegalArgumentException("Verification token has expired");
         }
 
         if (user.getTokenExpirationTime().isBefore(Instant.now())) {

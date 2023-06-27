@@ -48,7 +48,7 @@ private  String Description ;
 private  Date DateDebut ;
 private  Date DateFin ;
 private  Long NbrHeures;
-
+private boolean  endOf=false; 
 private String fileType;
 
 @Lob

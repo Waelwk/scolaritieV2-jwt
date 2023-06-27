@@ -5,13 +5,14 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.project.scolarite.entities.Admin;
 import com.project.scolarite.entities.Apprenant;
 import com.project.scolarite.entities.Role;
 import com.project.scolarite.repos.AdminRepo;
 import com.project.scolarite.repos.UserRepository;
-
+@Service
 public class AdminServisesImpl implements AdminServises {
 	 @Autowired
 	    private EmailVerificationService emailVerificationService;
@@ -44,7 +45,7 @@ A.setPassword(new BCryptPasswordEncoder().encode(A.getPassword()));
 	        	Apprenant.setEmail(A.getEmail());
 	        	Apprenant.setNom(A.getNom());
 	        //	Apprenant.setPassword(A.getPassword());
-	        	
+	        	Apprenant.setVerified(true);
 	        	
 	        	Apprenant.setPrenom(A.getPrenom());
 	        	Apprenant.setTel(A.getTel());

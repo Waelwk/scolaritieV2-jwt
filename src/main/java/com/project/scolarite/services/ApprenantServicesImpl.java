@@ -60,6 +60,7 @@ public class ApprenantServicesImpl implements ApprenantServices{
 	        	Apprenant.setNom(A.getNom());
 	        //	Apprenant.setPassword(A.getPassword());
 	        	
+	        	//Apprenant.setVerified(true);
 	        	
 	        	Apprenant.setPrenom(A.getPrenom());
 	        	Apprenant.setTel(A.getTel());
@@ -69,7 +70,7 @@ public class ApprenantServicesImpl implements ApprenantServices{
 		  
 
 	        A.setPassword(new BCryptPasswordEncoder().encode(A.getPassword()));
-		
+	   // A.setVerified(true);
 			A.setRole(Role.APPRENANT);
 	        return UserRepository.save(A);
 	

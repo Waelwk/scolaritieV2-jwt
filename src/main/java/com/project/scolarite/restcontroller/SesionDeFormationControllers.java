@@ -24,6 +24,7 @@ import com.project.scolarite.entities.Actualite;
 
 import com.project.scolarite.entities.Etablissement;
 import com.project.scolarite.entities.Formateur;
+import com.project.scolarite.entities.SeanceFormation;
 import com.project.scolarite.entities.SesionDeFormation;
 import com.project.scolarite.entities.ThemeDeFormation;
 import com.project.scolarite.entities.TypeFormation;
@@ -197,9 +198,31 @@ public class SesionDeFormationControllers {
 	{
 		
 		sesionFormationServices.deletSesionDeFormationById(idSessionFormation);
+		
 	
+		
+		
+		
+		
 	
 	}
-
-
+	
+	@DeleteMapping("FinSession/{idSessionFormation}")
+    public ResponseEntity<SesionDeFormation> updateSesionDeFormation(@PathVariable Long idSessionFormation
+    		) throws IOException, ParseException {
+        Optional<SesionDeFormation> opSesionDeFormation = SesionFormationRepository.findById(idSessionFormation);
+        if (opSesionDeFormation.isPresent()) {
+        	SesionDeFormation SesionDeFormation = opSesionDeFormation.get();
+        	SesionDeFormation.setEndOf(true);
+        	
+      
+            return ResponseEntity.ok(SesionFormationRepository.save(SesionDeFormation));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+        
+        
+    }
+    
+	
 }

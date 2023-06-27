@@ -21,7 +21,8 @@ public class Contact {
 	
 	private String email;
 	 private Long numTel;
-	 private String nomPrenom ;
+	 private String nom ;
+	 private String prenom ;
 	 private String message ;
 
 }
